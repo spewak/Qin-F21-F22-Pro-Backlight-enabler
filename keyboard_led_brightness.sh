@@ -18,16 +18,16 @@ if [[ ${LCD_VALUE} != '0' && -d "/sys/class/leds/mt6370_pmu_led1" ]]; then
 	echo 1 > /sys/class/leds/mt6370_pmu_led2/brightness
 
 # Disable keyboard backlight if LCD is off
-elif [[ ${LCD_VALUE} == '0' -d "/sys/class/leds/mt6370_pmu_led1" ]]; then
+elif [[ ${LCD_VALUE} == '0' && -d "/sys/class/leds/mt6370_pmu_led1" ]]; then
 
 	echo 0 > /sys/class/leds/mt6370_pmu_led1/brightness
 	echo 0 > /sys/class/leds/mt6370_pmu_led2/brightness
 
-elif [[ ${LCD_VALUE} != '0' -d "/sys/class/leds/button-backlight" ]]; then
+elif [[ ${LCD_VALUE} != '0' && -d "/sys/class/leds/button-backlight" ]]; then
 
 	echo 1 > /sys/class/leds/button-backlight/brightness
 
-elif [[ ${LCD_VALUE} == '0' -d "/sys/class/leds/button-backlight" ]]; then
+elif [[ ${LCD_VALUE} == '0' && -d "/sys/class/leds/button-backlight" ]]; then
 
 	echo 0 > /sys/class/leds/button-backlight/brightness
 	
