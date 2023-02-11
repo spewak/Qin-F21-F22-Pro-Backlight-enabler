@@ -10,16 +10,26 @@ LCD_BRIGHTNESS_FILE=/sys/class/leds/lcd-backlight/brightness
 
 LCD_VALUE=$(cat ${LCD_BRIGHTNESS_FILE})
 
+
 # Enable keyboard backlight if LCD is on. Led values can range between 0 and 6. led2 increases brightness further
-if [[ ${LCD_VALUE} != '0' ]]; then
+if [[ ${LCD_VALUE} != '0' && -d "/sys/class/leds/mt6370_pmu_led1" ]]; then
 
 	echo 1 > /sys/class/leds/mt6370_pmu_led1/brightness
 	echo 1 > /sys/class/leds/mt6370_pmu_led2/brightness
 
 # Disable keyboard backlight if LCD is off
-elif [[ ${LCD_VALUE} == '0' ]]; then
+elif [[ ${LCD_VALUE} == '0' -d "/sys/class/leds/mt6370_pmu_led1" ]]; then
 
 	echo 0 > /sys/class/leds/mt6370_pmu_led1/brightness
 	echo 0 > /sys/class/leds/mt6370_pmu_led2/brightness
+
+elif [[ ${LCD_VALUE} != '0' -d "/sys/class/leds/button-backlight" ]]; then
+
+	echo 1 > /sys/class/leds/button-backlight/brightness
+
+elif [[ ${LCD_VALUE} == '0' -d "/sys/class/leds/button-backlight" ]]; then
+
+	echo 0 > /sys/class/leds/button-backlight/brightness
+	
 fi
 exit 0
