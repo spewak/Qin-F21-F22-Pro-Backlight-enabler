@@ -35,12 +35,14 @@ elif [[ ${LCD_VALUE} == '0' && -d "/sys/class/leds/button-backlight" ]]; then
 fi
 sleep 6
 
-         LCD_VALUE=$(cat ${LCD_BRIGHTNESS_FILE}) 
+	LCD_VALUE=$(cat ${LCD_BRIGHTNESS_FILE}) 
 	 
-if [[ ${LCD_VALUE} == '0' ]]; then
+if [[ ${LCD_VALUE} == '0' && -d "/sys/class/leds/button-backlight" ]]; then
      
-	 echo 0 > /sys/class/leds/button-backlight/brightness
-         break
+	echo 0 > /sys/class/leds/button-backlight/brightness
+	break
+elif [[ -d "/sys/class/leds/mt6370_pmu_led1" ]]; then
+exit 0
 fi
 done
 exit 0
