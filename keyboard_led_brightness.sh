@@ -8,7 +8,7 @@ MODDIR=${0%/*}
 
 LCD_BRIGHTNESS_FILE=/sys/class/leds/lcd-backlight/brightness
 
-for i in 1 2 3 4 5 6 7 8 9 10
+for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
 do
 LCD_VALUE=$(cat ${LCD_BRIGHTNESS_FILE})
 
@@ -33,7 +33,7 @@ elif [[ ${LCD_VALUE} == '0' && -d "/sys/class/leds/button-backlight" ]]; then
 	echo 0 > /sys/class/leds/button-backlight/brightness
 	
 fi
-sleep 6
+sleep 3
 
 	LCD_VALUE=$(cat ${LCD_BRIGHTNESS_FILE}) 
 	 
